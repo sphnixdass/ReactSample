@@ -13,6 +13,7 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.15.3/dist/tf.min.js"></script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -24,9 +25,40 @@
     -->
     <title>React App</title>
   </head>
+
+  <!--script>
+    // Your script goes here!
+    // Creating a model to predict the output
+    async function predictOutput() {
+        const model = tf.sequential();
+        model.add(tf.layers.dense({ units: 8, inputShape: 2, activation: 'tanh' }));
+        model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }));
+        model.compile({ optimizer: 'sgd', loss: 'binaryCrossentropy', lr: 0.1 });
+        // Creating dataset
+        const xs = tf.tensor2d([[0, 0], [0, 1], [1, 0], [1, 1]]);
+        xs.print();
+        const ys = tf.tensor2d([[0], [1], [1], [0]]);
+        ys.print();
+        alert("hi");
+        // Train the model
+        await model.fit(xs, ys, {
+            batchSize: 1,
+            epochs: 5000
+        });
+
+        // Test the model and display output
+
+        document.getElementById("output").innerText = ys;
+    }
+    predictOutput();
+    alert("hi");
+</script-->
+
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="output"></div>
     <div id="root"></div>
+
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
